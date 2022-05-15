@@ -22,6 +22,11 @@ const AccountSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+AccountSchema.virtual("Transaction", {
+  ref: "Transaction",
+  localField: "_id",
+  foreignField: ["from", "to"],
+});
 
 const AccountWallet = mongoose.model("Account-Wallet", AccountSchema);
 

@@ -13,6 +13,12 @@ const TransactionTypeSchema = mongoose.Schema(
   }
 );
 
+TransactionTypeSchema.virtual("Transaction", {
+  ref: "Transaction",
+  localField: "_id",
+  foreignField: "transactionTypeId",
+});
+
 const TransactionType = mongoose.model(
   "TransactionType",
   TransactionTypeSchema

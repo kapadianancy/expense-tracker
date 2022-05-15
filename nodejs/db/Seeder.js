@@ -19,19 +19,19 @@ const mySeeder = async () => {
   const tags = await Tag.find();
   if (tags.length == 0) {
     const tag1 = new Tag({
-      tag: "Grocery/Food",
+      tag: "grocery/food",
     });
     const tag2 = new Tag({
-      tag: "Rent",
+      tag: "rent",
     });
     const tag3 = new Tag({
-      tag: "Tax",
+      tag: "tax",
     });
     const tag4 = new Tag({
-      tag: "Entertainment",
+      tag: "entertainment",
     });
     const tag5 = new Tag({
-      tag: "Utility",
+      tag: "utility",
     });
     await tag1.save();
     await tag2.save();
@@ -43,13 +43,13 @@ const mySeeder = async () => {
   const types = await Type.find();
   if (types.length == 0) {
     const type1 = new Type({
-      type: "Expense",
+      type: "expense",
     });
     const type2 = new Type({
-      type: "Transfer",
+      type: "transfer",
     });
     const type3 = new Type({
-      type: "Income",
+      type: "income",
     });
 
     await type1.save();

@@ -9,7 +9,7 @@ const TransactionSchema = mongoose.Schema(
     },
     expenseTagId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: "ExpenseTag",
     },
     from: {

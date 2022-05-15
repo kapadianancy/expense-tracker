@@ -6,7 +6,9 @@ var logger = require("morgan");
 var db = require("./db/db-config");
 var seeder = require("./db/Seeder");
 
-var indexRouter = require("./routes/index");
+var UserRoute = require("./routes/UserRoute");
+var AccountRouter = require("./routes/AccountRoute");
+var TransactionRouter = require("./routes/TransactionRoute");
 
 var app = express();
 seeder();
@@ -17,7 +19,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+app.use("/user", UserRoute);
+app.use("/acc", AccountRouter);
+app.use("/transaction", TransactionRouter);
+app.use("/*", (req, res) => {
+  res.status(404).send({ error: "Url Not Found" });
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -12,6 +12,11 @@ const TagsSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+TagsSchema.virtual("Transaction", {
+  ref: "Transaction",
+  localField: "_id",
+  foreignField: "expenseTagId",
+});
 
 const ExpenseTag = mongoose.model("ExpenseTag", TagsSchema);
 
