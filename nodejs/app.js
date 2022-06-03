@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var db = require("./db/db-config");
 var seeder = require("./db/Seeder");
+var cors = require("cors");
 
 var UserRoute = require("./routes/UserRoute");
 var AccountRouter = require("./routes/AccountRoute");
@@ -13,6 +14,7 @@ var TransactionRouter = require("./routes/TransactionRoute");
 var app = express();
 seeder();
 
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

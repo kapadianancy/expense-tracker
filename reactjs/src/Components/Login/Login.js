@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
+import { connect } from "react-redux";
 
 import { styles } from "./Login-css";
 import Card from "../Custom/Card";
+import * as auth from "../../Actions/AuthAction";
+import { Navigate } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -10,6 +13,8 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      user: props.user,
+      error: props.error,
     };
   }
 
@@ -21,9 +26,22 @@ class Login extends Component {
     });
   };
 
+  login = async () => {
+    try {
+      await this.props.login(this.state.username, this.state.password);
+      this.setState({
+        user: this.props.user,
+        error: this.props.error,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
     return (
       <div style={styles.bg}>
+        {this.state.user ? <Navigate to="/" /> : null}
         <Card style={styles.card}>
           <h3 style={styles.h1}>Login to Spendee</h3>
           <Form>
@@ -48,7 +66,12 @@ class Login extends Component {
                 onChange={(e) => this.changeHandler(e)}
               />
             </Form.Group>
-            <Button style={styles.btn}>Login</Button>
+            <Button style={styles.btn} onClick={() => this.login()}>
+              Login
+            </Button>
+            <span style={{ color: "red", marginLeft: "10px" }}>
+              {this.state.error}
+            </span>
           </Form>
         </Card>
       </div>
@@ -56,4 +79,17 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProp = (state) => {
+  return {
+    user: state.Auth.user,
+    error: state.Auth.error,
+  };
+};
+
+const mapDispatchToProp = (dispatch) => {
+  return {
+    login: (username, password) => dispatch(auth.login(username, password)),
+  };
+};
+
+export default connect(mapStateToProp, mapDispatchToProp)(Login);

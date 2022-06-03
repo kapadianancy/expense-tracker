@@ -1,0 +1,31 @@
+.pro-sidebar .pro-sidebar-inner
+{
+    background: #eff5fb;
+    width: 91% !important;
+    height: 100%;
+    
+}
+
+.title
+{
+    font-size: large;
+    font-weight: bold;
+    color:#0abab5
+}
+
+.pro-sidebar .pro-menu .pro-menu-item  .pro-inner-item  .pro-icon-wrapper
+{
+    color:#0abab5;
+    font-size: 20px !important;
+}
+.pro-sidebar .pro-menu .pro-menu-item.active .title
+{    
+    color:#0d0079
+}
+
+.pro-sidebar .pro-menu .pro-menu-item.active  .pro-inner-item  .pro-icon-wrapper
+{
+    color:#0d0079;
+    font-size: 40px !important;
+}
+

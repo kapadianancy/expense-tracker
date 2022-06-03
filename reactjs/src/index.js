@@ -1,13 +1,52 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { BrowserRouter } from "react-router-dom";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { AuthReducer } from "./reducers/AuthReducer";
+
+// create reducers
+const rootReducer = combineReducers({
+  Auth: AuthReducer,
+});
+
+// initialize user states
+let init;
+if (localStorage.getItem("user")) {
+  init = {
+    Auth: {
+      user: localStorage.getItem("user"),
+    },
+  };
+} else {
+  init = {
+    Auth: {
+      user: "",
+    },
+  };
+}
+
+// create stores
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  init,
+  composeEnhancers(applyMiddleware(thunk))
+);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

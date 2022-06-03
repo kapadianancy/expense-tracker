@@ -32,7 +32,9 @@ router.post("/login", async (req, res) => {
     if (user) {
       let result = await bcrypt.compare(req.body.password, user.password);
       if (result) {
-        res.status(200).send({ message: "Successfully logged in." });
+        res
+          .status(200)
+          .send({ message: "Successfully logged in.", user: user._id });
       } else {
         res.status(400).send({ error: "Unathorized" });
       }
