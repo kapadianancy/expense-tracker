@@ -4,6 +4,8 @@ var Transaction = require("../models/Transaction");
 var TransactionType = require("../models/TransactionType");
 var Account = require("../models/Account-Wallet");
 const ExpenseTag = require("../models/ExpenseTag");
+const { TransactionTypes } = require("../constants");
+const AccountWallet = require("../models/Account-Wallet");
 
 router.post("/add", async (req, res) => {
   try {
@@ -29,16 +31,16 @@ router.post("/add", async (req, res) => {
             var toAccount = await Account.findById(data.to);
           }
 
-          if (transactionType.type == "Expense") {
+          if (transactionType.type == TransactionTypes.Expense) {
             var balance = fromAccount.balance - data.amount;
             await Account.findByIdAndUpdate(data.from, { balance });
-          } else if (transactionType.type == "Transfer") {
+          } else if (transactionType.type == TransactionTypes.Transfer) {
             var balance = fromAccount.balance - data.amount;
             await Account.findByIdAndUpdate(data.from, { balance });
 
             balance = toAccount.balance + data.amount;
             await Account.findByIdAndUpdate(data.to, { balance });
-          } else if (transactionType.type == "Income") {
+          } else if (transactionType.type == TransactionTypes.Income) {
             var balance = toAccount.balance + data.amount;
             await Account.findByIdAndUpdate(data.to, { balance });
           } else {
@@ -143,6 +145,24 @@ router.patch("/edit/:id", async (req, res) => {
         res.status(400).send({ error: "Something went wrong" });
       }
     }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/total-expense", async (req, res) => {
+  try {
+    const type = await TransactionType.findOne({
+      type: TransactionTypes.Expense,
+    });
+
+    const trans = await Transaction.find({ transactionTypeId: type._id });
+    let total = 0;
+    trans.forEach((t) => {
+      total += t.amount;
+    });
+
+    res.status(200).send({ total });
   } catch (e) {
     console.log(e);
   }

@@ -3,6 +3,7 @@ const Tag = require("../models/ExpenseTag");
 const Type = require("../models/TransactionType");
 const Account = require("../models/Account-Wallet");
 const Transaction = require("../models/Transaction");
+const { ExpenseTags, TransactionTypes } = require("../constants");
 
 const mySeeder = async () => {
   const users = await User.find();
@@ -19,19 +20,19 @@ const mySeeder = async () => {
   const tags = await Tag.find();
   if (tags.length == 0) {
     const tag1 = new Tag({
-      tag: "grocery/food",
+      tag: ExpenseTags.GroceryFood,
     });
     const tag2 = new Tag({
-      tag: "rent",
+      tag: ExpenseTags.Rent,
     });
     const tag3 = new Tag({
-      tag: "tax",
+      tag: ExpenseTags.Tax,
     });
     const tag4 = new Tag({
-      tag: "entertainment",
+      tag: ExpenseTags.Entertainment,
     });
     const tag5 = new Tag({
-      tag: "utility",
+      tag: ExpenseTags.Utility,
     });
     await tag1.save();
     await tag2.save();
@@ -43,13 +44,13 @@ const mySeeder = async () => {
   const types = await Type.find();
   if (types.length == 0) {
     const type1 = new Type({
-      type: "expense",
+      type: TransactionTypes.Expense,
     });
     const type2 = new Type({
-      type: "transfer",
+      type: TransactionTypes.Transfer,
     });
     const type3 = new Type({
-      type: "income",
+      type: TransactionTypes.Income,
     });
 
     await type1.save();

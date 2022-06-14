@@ -35,7 +35,6 @@ router.get("/", async (req, res) => {
       }
     }
 
-    console.log(query);
     var accounts = await Account.find(query);
     if (accounts.length == 0) {
       res.status(400).send({ error: "No Accounts Found." });
@@ -78,6 +77,39 @@ router.delete("/delete/:id", async (req, res) => {
         res.status(400).send({ error: "Account not found." });
       }
     }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/total-income", async (req, res) => {
+  try {
+    const result = await Account.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$balance" },
+        },
+      },
+    ]);
+
+    res.status(200).send(result);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/total-acc", async (req, res) => {
+  try {
+    const result = await Account.aggregate([
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    res.status(200).send(result);
   } catch (e) {
     console.log(e);
   }

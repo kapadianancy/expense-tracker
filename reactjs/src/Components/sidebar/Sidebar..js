@@ -18,7 +18,7 @@ const Sidebar = ({ activeLink, setActivelink }) => {
   };
 
   return (
-    <>
+    <div>
       <ProSidebar>
         <SidebarContent>
           <Menu>
@@ -57,7 +57,7 @@ const Sidebar = ({ activeLink, setActivelink }) => {
           </Menu>
         </SidebarContent>
       </ProSidebar>
-    </>
+    </div>
   );
 };
 
