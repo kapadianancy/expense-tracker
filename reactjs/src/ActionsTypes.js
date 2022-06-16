@@ -1,2 +1,6 @@
 export const LOGIN = "LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
+export const ACCOUNT_COUNT = "ACCOUNT_COUNT";
+export const TOTAL_ACCOUNT_BALANCE = "TOTAL_ACCOUNT_BALANCE";
+export const TOTAL_INCOME = "TOTAL_INCOME";
+export const TOTAL_EXPENSE = "TOTAL_EXPENSE";

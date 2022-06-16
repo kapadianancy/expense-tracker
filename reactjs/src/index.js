@@ -9,10 +9,14 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { AuthReducer } from "./reducers/AuthReducer";
+import { AccountReducer } from "./reducers/AccountReducer";
+import { TransactionReducer } from "./reducers/TransactionReducer";
 
 // create reducers
 const rootReducer = combineReducers({
   Auth: AuthReducer,
+  Account: AccountReducer,
+  Transaction: TransactionReducer,
 });
 
 // initialize user states

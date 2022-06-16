@@ -168,4 +168,22 @@ router.get("/total-expense", async (req, res) => {
   }
 });
 
+router.get("/total-income", async (req, res) => {
+  try {
+    const type = await TransactionType.findOne({
+      type: TransactionTypes.Income,
+    });
+
+    const trans = await Transaction.find({ transactionTypeId: type._id });
+    let total = 0;
+    trans.forEach((t) => {
+      total += t.amount;
+    });
+
+    res.status(200).send({ total });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;
