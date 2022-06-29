@@ -1,6 +1,11 @@
 export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const ACCOUNT_COUNT = "ACCOUNT_COUNT";
 export const TOTAL_ACCOUNT_BALANCE = "TOTAL_ACCOUNT_BALANCE";
 export const TOTAL_INCOME = "TOTAL_INCOME";
 export const TOTAL_EXPENSE = "TOTAL_EXPENSE";
+export const GET_ALL_ACCOUNTS = "GET_ALL_ACCOUNTS";
+export const ADD_ACCOUNT = "ADD_ACCOUNT";
+export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+export const EDIT_ACCOUNT = "EDIT_ACCOUNT";

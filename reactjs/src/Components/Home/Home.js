@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
+import Account from "../Account/Account";
 
 import Header from "../Header/Header";
 import Sidebar from "../sidebar/Sidebar.";
@@ -26,7 +27,7 @@ class Home extends Component {
         result = <h1>transaction</h1>;
         break;
       case "/account":
-        result = <h1>account</h1>;
+        result = <Account />;
         break;
       case "/report":
         result = <h1>report</h1>;

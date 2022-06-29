@@ -28,3 +28,11 @@ export const login = (username, password) => {
     }
   };
 };
+
+export const logout = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.LOGOUT,
+    });
+  };
+};

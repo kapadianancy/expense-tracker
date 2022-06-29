@@ -20,6 +20,8 @@ export const AuthReducer = (state = initialState, action) => {
         error: action.data.error,
         user: "",
       };
+    case ActionTypes.LOGOUT:
+      return { ...state, user: "", error: "" };
 
     default:
       return state;

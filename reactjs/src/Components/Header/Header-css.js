@@ -23,5 +23,12 @@ export const styles = {
     alignSelf: "center",
     margin: "2px 20px",
     color: Colors.smoke,
+    cursor: "pointer",
+  },
+  btn: {
+    backgroundColor: Colors.darkBlue,
+    borderColor: Colors.darkBlue,
+    color: Colors.white,
+    fontWeight: "bold",
   },
 };
