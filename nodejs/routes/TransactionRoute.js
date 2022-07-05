@@ -70,7 +70,7 @@ router.get("/", async (req, res) => {
 
     //find by transaction type
     if (req.query.type) {
-      var type = await TransactionType.findOne({ type: req.query.type });
+      var type = await TransactionType.findOne({ _id: req.query.type });
 
       query = {
         ...query,
@@ -80,7 +80,7 @@ router.get("/", async (req, res) => {
 
     //find by expense tag
     if (req.query.tag) {
-      var tag = await ExpenseTag.findOne({ tag: req.query.tag });
+      var tag = await ExpenseTag.findOne({ _id: req.query.tag });
       query = {
         ...query,
         expenseTagId: tag?._id,

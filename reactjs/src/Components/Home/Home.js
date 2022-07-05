@@ -5,6 +5,7 @@ import Account from "../Account/Account";
 
 import Header from "../Header/Header";
 import Sidebar from "../sidebar/Sidebar.";
+import Transaction from "../Transaction/Transaction";
 import Dashboard from "./Dashboard";
 
 import "./style.css";
@@ -24,7 +25,7 @@ class Home extends Component {
         result = <Dashboard />;
         break;
       case "/transaction":
-        result = <h1>transaction</h1>;
+        result = <Transaction />;
         break;
       case "/account":
         result = <Account />;

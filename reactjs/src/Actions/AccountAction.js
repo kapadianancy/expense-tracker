@@ -59,9 +59,7 @@ export const addAccount = (data) => {
         type: ActionTypes.ADD_ACCOUNT,
         data: {
           message:
-            result.data.status === "201"
-              ? result.data.message
-              : result.data.error,
+            result.status === "201" ? result.data.message : result.data.error,
         },
       });
     } catch (e) {
@@ -78,9 +76,7 @@ export const deleteAccount = (id) => {
         type: ActionTypes.DELETE_ACCOUNT,
         data: {
           message:
-            result.data.status === "200"
-              ? result.data.message
-              : result.data.error,
+            result.status === "200" ? result.data.message : result.data.error,
         },
       });
     } catch (e) {
@@ -97,9 +93,7 @@ export const editAccount = (id, data) => {
         type: ActionTypes.EDIT_ACCOUNT,
         data: {
           message:
-            result.data.status === "200"
-              ? result.data.message
-              : result.data.error,
+            result.status === "200" ? result.data.message : result.data.error,
         },
       });
     } catch (e) {

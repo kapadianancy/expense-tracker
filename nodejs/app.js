@@ -10,6 +10,7 @@ var cors = require("cors");
 var UserRoute = require("./routes/UserRoute");
 var AccountRouter = require("./routes/AccountRoute");
 var TransactionRouter = require("./routes/TransactionRoute");
+var Utils = require("./routes/Utils");
 
 var app = express();
 seeder();
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/user", UserRoute);
 app.use("/acc", AccountRouter);
 app.use("/transaction", TransactionRouter);
+app.use("/", Utils);
 app.use("/*", (req, res) => {
   res.status(404).send({ error: "Url Not Found" });
 });

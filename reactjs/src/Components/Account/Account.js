@@ -1,14 +1,13 @@
-import React, { Component } from "react";
+import { Component } from "react";
+import { Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
-import Card from "../Custom/Card";
-import { styles } from "./Account-css";
+import { BsFillTrashFill, BsPencilFill } from "react-icons/bs";
 import { connect } from "react-redux";
 import * as AccountActions from "../../Actions/AccountAction";
-import { Button } from "react-bootstrap";
-import { Colors } from "../../Constants";
-import { BsFillTrashFill, BsPencilFill } from "react-icons/bs";
+import Card from "../Custom/Card";
 import CustomModal from "../Custom/CustomModal";
-import Form from "react-bootstrap/Form";
+import { styles } from "./Account-css";
 
 class Account extends Component {
   constructor(props) {
