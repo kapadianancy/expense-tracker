@@ -4,12 +4,14 @@ import axiosInstance from "../axios";
 export const getAccountCount = () => {
   return async (dispatch) => {
     try {
-      var result = await axiosInstance.get("/acc/total-acc");
+      var userId = localStorage.getItem("user");
+
+      var result = await axiosInstance.get("/acc/total-acc/" + userId);
 
       dispatch({
         type: ActionTypes.ACCOUNT_COUNT,
         data: {
-          count: result.data[0].count,
+          count: result.data.count,
         },
       });
     } catch (e) {
@@ -21,12 +23,13 @@ export const getAccountCount = () => {
 export const getTotalAccountBalance = () => {
   return async (dispatch) => {
     try {
-      var result = await axiosInstance.get("/acc/total-income");
+      var userId = localStorage.getItem("user");
+      var result = await axiosInstance.get("/acc/total-income/" + userId);
 
       dispatch({
         type: ActionTypes.TOTAL_ACCOUNT_BALANCE,
         data: {
-          total: result.data[0].total,
+          total: result.data.total,
         },
       });
     } catch (e) {
@@ -38,7 +41,8 @@ export const getTotalAccountBalance = () => {
 export const getAllAccounts = () => {
   return async (dispatch) => {
     try {
-      var result = await axiosInstance.get("/acc");
+      var userId = localStorage.getItem("user");
+      var result = await axiosInstance.get("/acc/" + userId);
       dispatch({
         type: ActionTypes.GET_ALL_ACCOUNTS,
         data: {
@@ -47,6 +51,12 @@ export const getAllAccounts = () => {
       });
     } catch (e) {
       console.log(e);
+      dispatch({
+        type: ActionTypes.GET_ALL_ACCOUNTS,
+        data: {
+          accounts: [],
+        },
+      });
     }
   };
 };

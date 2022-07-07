@@ -7,6 +7,7 @@ import Header from "../Header/Header";
 import Sidebar from "../sidebar/Sidebar.";
 import Transaction from "../Transaction/Transaction";
 import Dashboard from "./Dashboard";
+import * as AuthActions from "../../Actions/AuthAction";
 
 import "./style.css";
 
@@ -17,6 +18,9 @@ class Home extends Component {
       activeLink: "/",
       pageElement: <Dashboard />,
     };
+  }
+  componentDidMount() {
+    this.props.getUser();
   }
   setActivelink = (link) => {
     let result = null;
@@ -29,9 +33,6 @@ class Home extends Component {
         break;
       case "/account":
         result = <Account />;
-        break;
-      case "/report":
-        result = <h1>report</h1>;
         break;
       default:
         result = <h1>Something went wrong!</h1>;
@@ -46,7 +47,7 @@ class Home extends Component {
     return (
       <>
         {this.props.user ? null : <Navigate to="/login" />}
-        <Header />
+        <Header user={this.props.userData?.username} />
         <div id="page">
           <Sidebar
             activeLink={this.state.activeLink}
@@ -63,11 +64,14 @@ class Home extends Component {
 const mapStateToProp = (state) => {
   return {
     user: state.Auth.user,
+    userData: state.Auth.userData,
   };
 };
 
 const mapDispatchToProp = (dispatch) => {
-  return {};
+  return {
+    getUser: () => dispatch(AuthActions.getUser()),
+  };
 };
 
 export default connect(mapStateToProp, mapDispatchToProp)(Home);

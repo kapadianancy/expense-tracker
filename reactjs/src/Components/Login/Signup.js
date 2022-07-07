@@ -5,17 +5,18 @@ import { connect } from "react-redux";
 import { styles } from "./Login-css";
 import Card from "../Custom/Card";
 import * as auth from "../../Actions/AuthAction";
-import { Link, Navigate } from "react-router-dom";
-import Signup from "./Signup";
+import { Navigate } from "react-router-dom";
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       password: "",
-      user: props.user,
-      error: props.error,
+      phoneNumber: "",
+      email: "",
+      user: "",
+      error: "",
     };
   }
 
@@ -27,9 +28,15 @@ class Login extends Component {
     });
   };
 
-  login = async () => {
+  signup = async () => {
     try {
-      await this.props.login(this.state.username, this.state.password);
+      const data = {
+        username: this.state.username,
+        password: this.state.password,
+        phoneNumber: this.state.phoneNumber,
+        email: this.state.email,
+      };
+      await this.props.signup(data);
       this.setState({
         user: this.props.user,
         error: this.props.error,
@@ -44,7 +51,7 @@ class Login extends Component {
       <div style={styles.bg}>
         {this.state.user ? <Navigate to="/" /> : null}
         <Card style={styles.card}>
-          <h3 style={styles.h1}>Login to Spendee</h3>
+          <h3 style={styles.h1}>Signup to Spendee</h3>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label style={styles.label}>Username</Form.Label>
@@ -67,14 +74,33 @@ class Login extends Component {
                 onChange={(e) => this.changeHandler(e)}
               />
             </Form.Group>
-            <Button style={styles.btn} onClick={() => this.login()}>
-              Login
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label style={styles.label}>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                name="phoneNumber"
+                placeholder="Enter Phone number"
+                value={this.state.phoneNumber}
+                onChange={(e) => this.changeHandler(e)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label style={styles.label}>Email</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                value={this.state.email}
+                onChange={(e) => this.changeHandler(e)}
+              />
+            </Form.Group>
+            <Button style={styles.btn} onClick={() => this.signup()}>
+              Signup
             </Button>
             <span style={{ color: "red", marginLeft: "10px" }}>
               {this.state.error}
             </span>
           </Form>
-          <Link to="/signup">Want to Signup?</Link>
         </Card>
       </div>
     );
@@ -90,8 +116,8 @@ const mapStateToProp = (state) => {
 
 const mapDispatchToProp = (dispatch) => {
   return {
-    login: (username, password) => dispatch(auth.login(username, password)),
+    signup: (data) => dispatch(auth.signup(data)),
   };
 };
 
-export default connect(mapStateToProp, mapDispatchToProp)(Login);
+export default connect(mapStateToProp, mapDispatchToProp)(Signup);

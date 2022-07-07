@@ -6,7 +6,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import * as AuthAction from "../../Actions/AuthAction";
 
-const Header = () => {
+const Header = ({ user }) => {
   const path = "../assets/images/logo-1.png";
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const Header = () => {
       <img src={path} style={styles.logo} />
       <h2 style={styles.title}>Spendee</h2>
       <h3 style={styles.user}>
+        <span style={{ fontSize: "20px" }}>Welcome, {user} </span>
         <BsPersonCircle onClick={() => setShow(true)} />
       </h3>
 

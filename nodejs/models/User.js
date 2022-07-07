@@ -36,6 +36,18 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
+UserSchema.virtual("Transaction", {
+  ref: "Transaction",
+  localField: "_id",
+  foreignField: "userId",
+});
+
+UserSchema.virtual("Account-Wallet", {
+  ref: "Account-Wallet",
+  localField: "_id",
+  foreignField: "userId",
+});
+
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;

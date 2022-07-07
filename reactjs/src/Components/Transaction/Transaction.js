@@ -117,7 +117,8 @@ const Transaction = () => {
     const e = validate(formValues);
 
     if (!e) {
-      dispatch(transActions.addTransaction(formValues));
+      var userId = localStorage.getItem("user");
+      dispatch(transActions.addTransaction({ ...formValues, userId }));
       dispatch(transActions.getAllTransactions());
       hideHandle();
       setShow(false);

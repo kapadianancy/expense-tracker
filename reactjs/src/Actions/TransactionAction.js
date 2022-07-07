@@ -4,7 +4,10 @@ import axiosInstance from "../axios";
 export const getTotalIncome = () => {
   return async (dispatch) => {
     try {
-      var result = await axiosInstance.get("/transaction/total-income");
+      var userId = localStorage.getItem("user");
+      var result = await axiosInstance.get(
+        "/transaction/total-income/" + userId
+      );
 
       dispatch({
         type: ActionTypes.TOTAL_INCOME,
@@ -21,7 +24,10 @@ export const getTotalIncome = () => {
 export const getTotalExpense = () => {
   return async (dispatch) => {
     try {
-      var result = await axiosInstance.get("/transaction/total-expense");
+      var userId = localStorage.getItem("user");
+      var result = await axiosInstance.get(
+        "/transaction/total-expense/" + userId
+      );
 
       dispatch({
         type: ActionTypes.TOTAL_EXPENSE,
@@ -38,7 +44,10 @@ export const getTotalExpense = () => {
 export const getAllTransactions = (query = "") => {
   return async (dispatch) => {
     try {
-      var result = await axiosInstance.get("/transaction?" + query);
+      var userId = localStorage.getItem("user");
+      var result = await axiosInstance.get(
+        "/transaction/" + userId + "?" + query
+      );
 
       dispatch({
         type: ActionTypes.GET_ALL_TRANSACTIONS,

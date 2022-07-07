@@ -7,6 +7,7 @@ const { ExpenseTags, TransactionTypes } = require("../constants");
 
 const mySeeder = async () => {
   const users = await User.find();
+  let userId = null;
   if (users.length == 0) {
     const user = new User({
       username: "nancy",
@@ -14,7 +15,8 @@ const mySeeder = async () => {
       phoneNumber: "9089098978",
       email: "testing@gmail.com",
     });
-    await user.save();
+    const result = await user.save();
+    userId = result._id;
   }
 
   const tags = await Tag.find();
@@ -61,6 +63,7 @@ const mySeeder = async () => {
   const accounts = await Account.find();
   if (accounts.length == 0) {
     const acc = new Account({
+      userId: userId,
       name: "Nancy's Wallet",
       balance: 1000,
     });

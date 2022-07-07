@@ -56,9 +56,10 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
-    var query = { isDeleted: false };
+    const id = req.params.userId;
+    var query = { isDeleted: false, userId: id };
 
     //find by account/wallet
     if (req.query.account) {
@@ -107,7 +108,8 @@ router.get("/", async (req, res) => {
       .populate("transactionTypeId")
       .populate("expenseTagId")
       .populate("from")
-      .populate("to");
+      .populate("to")
+      .populate("userId");
     if (trans.length > 0) {
       res.status(200).send({ total: trans.length, transactions: trans });
     } else {
@@ -150,13 +152,17 @@ router.patch("/edit/:id", async (req, res) => {
   }
 });
 
-router.get("/total-expense", async (req, res) => {
+router.get("/total-expense/:userId", async (req, res) => {
   try {
+    const id = req.params.userId;
     const type = await TransactionType.findOne({
       type: TransactionTypes.Expense,
     });
 
-    const trans = await Transaction.find({ transactionTypeId: type._id });
+    const trans = await Transaction.find({
+      transactionTypeId: type._id,
+      userId: id,
+    });
     let total = 0;
     trans.forEach((t) => {
       total += t.amount;
@@ -168,13 +174,17 @@ router.get("/total-expense", async (req, res) => {
   }
 });
 
-router.get("/total-income", async (req, res) => {
+router.get("/total-income/:userId", async (req, res) => {
   try {
+    const id = req.params.userId;
     const type = await TransactionType.findOne({
       type: TransactionTypes.Income,
     });
 
-    const trans = await Transaction.find({ transactionTypeId: type._id });
+    const trans = await Transaction.find({
+      transactionTypeId: type._id,
+      userId: id,
+    });
     let total = 0;
     trans.forEach((t) => {
       total += t.amount;

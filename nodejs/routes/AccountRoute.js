@@ -20,22 +20,25 @@ router.post("/add", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
-    var query = {};
+    const id = req.params.userId;
+    var query = { userId: id };
     if (req.query.active) {
       if (req.query.active == "true") {
         query = {
+          ...query,
           isDeleted: false,
         };
       } else {
         query = {
+          ...query,
           isDeleted: true,
         };
       }
     }
 
-    var accounts = await Account.find(query);
+    var accounts = await Account.find(query).populate("userId");
     if (accounts.length == 0) {
       res.status(400).send({ error: "No Accounts Found." });
     } else {
@@ -82,34 +85,65 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-router.get("/total-income", async (req, res) => {
+router.get("/total-income/:userId", async (req, res) => {
   try {
-    const result = await Account.aggregate([
+    const id = req.params.userId;
+    let result = await Account.aggregate([
       {
         $group: {
-          _id: null,
+          _id: "$userId",
           total: { $sum: "$balance" },
         },
       },
     ]);
 
-    res.status(200).send(result);
+    result = result.filter((r) => {
+      if (r._id == id) {
+        return r;
+      }
+    });
+    if (result.length == 0) {
+      result = [
+        {
+          _id: id,
+          total: 0,
+        },
+      ];
+    }
+
+    res.status(200).send(result[0]);
   } catch (e) {
     console.log(e);
   }
 });
 
-router.get("/total-acc", async (req, res) => {
+router.get("/total-acc/:userId", async (req, res) => {
   try {
-    const result = await Account.aggregate([
+    const id = req.params.userId;
+
+    let result = await Account.aggregate([
       {
         $group: {
-          _id: null,
+          _id: "$userId",
           count: { $sum: 1 },
         },
       },
     ]);
-    res.status(200).send(result);
+    result = result.filter((r) => {
+      if (r._id == id) {
+        return r;
+      }
+    });
+    //no data for that id
+    if (result.length == 0) {
+      result = [
+        {
+          _id: id,
+          count: 0,
+        },
+      ];
+    }
+    res.status(200).send(result[0]);
   } catch (e) {
     console.log(e);
   }

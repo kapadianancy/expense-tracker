@@ -11,7 +11,9 @@ router.post("/signup", async (req, res) => {
     const user = new User({ ...req.body });
     user.save((err, data) => {
       if (!err) {
-        res.status(201).send({ message: "Successfully signed in." });
+        res
+          .status(201)
+          .send({ message: "Successfully signed in.", user: data._id });
       } else {
         res.status(400).send({ error: "Something went wrong." });
       }
@@ -41,6 +43,16 @@ router.post("/login", async (req, res) => {
     } else {
       res.status(400).send({ error: "Unathorized" });
     }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/:userId", async (req, res) => {
+  try {
+    const id = req.params.userId;
+    const user = await User.findById(id);
+    res.status(200).send(user);
   } catch (e) {
     console.log(e);
   }

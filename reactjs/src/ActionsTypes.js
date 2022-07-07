@@ -1,6 +1,9 @@
 export const LOGIN = "LOGIN";
+export const SIGNUP = "SIGNUP";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_FAILED = "LOGIN_FAILED";
+export const SIGNUP_FAILED = "SIGNUP_FAILED";
+export const GET_USER = "GET_USER";
 
 export const ACCOUNT_COUNT = "ACCOUNT_COUNT";
 export const TOTAL_ACCOUNT_BALANCE = "TOTAL_ACCOUNT_BALANCE";

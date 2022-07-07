@@ -27,8 +27,8 @@ class Account extends Component {
     this.fetchData();
   }
 
-  fetchData = async () => {
-    await this.props.getAll();
+  fetchData = () => {
+    this.props.getAll();
     this.setState({
       accounts: this.props.accounts,
     });
@@ -55,13 +55,20 @@ class Account extends Component {
 
   handleAdd = (e) => {
     e.preventDefault();
-    const { formValues } = this.state;
+    let { formValues, showAdd } = this.state;
+    var userId = localStorage.getItem("user");
+    formValues = { ...formValues, userId };
     this.props.addAccount(formValues);
+
+    formValues = {};
+    showAdd = false;
+
     this.setState({
-      showAdd: false,
-      formValues: {},
+      showAdd,
+      formValues,
     });
-    this.fetchData();
+    this.props.getAll();
+    this.setState({ showAdd: false });
   };
 
   handleDelete = (id) => {
@@ -74,6 +81,7 @@ class Account extends Component {
   handleEdit = (data) => {
     this.setState({
       formValues: {
+        userId: data.userId,
         name: data.name,
         balance: data.balance,
         isDeleted: data.isDeleted,
@@ -90,14 +98,16 @@ class Account extends Component {
     if (activeClicked) {
       formValues = { ...formValues, isDeleted: false };
     }
-
     this.props.editAccount(this.state.editId, formValues);
+
     formValues = {};
     showAdd = false;
     activeClicked = false;
     editMode = false;
+
     this.setState({ formValues, activeClicked, showAdd, editMode });
-    this.fetchData();
+    this.props.getAll();
+    this.setState({ showAdd: false });
   };
 
   handleActive = () => {
