@@ -10,6 +10,7 @@ import Dashboard from "./Dashboard";
 import * as AuthActions from "../../Actions/AuthAction";
 
 import "./style.css";
+import TransByAcc from "../Reports/TransByAcc";
 
 class Home extends Component {
   constructor(props) {
@@ -33,6 +34,9 @@ class Home extends Component {
         break;
       case "/account":
         result = <Account />;
+        break;
+      case "/report":
+        result = <TransByAcc />;
         break;
       default:
         result = <h1>Something went wrong!</h1>;

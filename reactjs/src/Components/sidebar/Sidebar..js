@@ -8,6 +8,7 @@ import {
   BsCurrencyExchange,
   BsPiggyBankFill,
   BsGridFill,
+  BsFillBarChartLineFill,
 } from "react-icons/bs";
 
 const Sidebar = ({ activeLink, setActivelink }) => {
@@ -43,6 +44,14 @@ const Sidebar = ({ activeLink, setActivelink }) => {
               onClick={(e) => handleClick(e, "/account")}
             >
               <span className="title">Accounts</span>
+            </MenuItem>
+            <hr />
+            <MenuItem
+              icon={<BsFillBarChartLineFill />}
+              active={activeLink === "/report"}
+              onClick={(e) => handleClick(e, "/report")}
+            >
+              <span className="title">Reports</span>
             </MenuItem>
             <hr />
           </Menu>
